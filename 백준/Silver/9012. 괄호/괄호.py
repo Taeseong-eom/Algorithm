@@ -1,21 +1,27 @@
 import sys
 
-input = sys.stdin.readline
+data = sys.stdin.readlines()
 
-LineNum = int(input())
+num = int(data[0])
 
-for i in range(LineNum):
-    line = input().strip()
-    stack= []
-    for j in line:
+result = []
+
+for i in data[1:]:
+    stack = []
+    YN = True
+
+    for j in i.strip():
         if j == '(':
             stack.append(j)
-        elif stack:
-            stack.pop()
         else:
-            print("NO")
-            break
+            if stack:
+                stack.pop()
+            else:
+                YN = False
+                break
+    if YN and not stack:
+        result.append("YES")
     else:
-        print("YES" if not stack else "NO")
-
-
+        result.append("NO")
+    
+sys.stdout.write('\n'.join(result)+'\n')
